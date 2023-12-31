@@ -76,13 +76,13 @@ def prediction_model(df, country):
     model.fit(x, y)
 
     # Đánh giá mô hình
-    y_pred = model.predict(x)
-    mse = mean_squared_error(y, y_pred)
-    r2 = r2_score(y, y_pred)
+    y_pred = model.predict(x) # Dự đoán mô hình
+    mse = mean_squared_error(y, y_pred) # Trung bình sai số
+    r2 = r2_score(y, y_pred) # Hệ số xác định
 
     print('\n[ĐÁNH GIÁ MÔ HÌNH]')
     print(f"Trung bình sai số (MSE): {mse:.2f}")
-    print(f"Bình phương sai số (R²): {r2:.2f}")
+    print(f"Hệ số xác định (R²): {r2:.2f}")
 
     # Vẽ biểu đồ thể hiện đường hồi quy tuyến tính
     plt.figure(figsize=(10, 6))
@@ -100,6 +100,12 @@ def prediction_model(df, country):
 
 # Tính toán và trả về giá trị dự đoán dựa vào mô hình đã được huấn luyện
 def prediction(model, year):
+    # Dự đoán dân số theo năm
+    # Đường hồi quy tuyến tính có dạng phương trình đường thẳng: y = mx + b
+    # y là giá trị dự đoán (dân số ước tính)
+    # m (model.coef_[0][0]) là hệ số của biến độc lập (năm) từ mô hình hồi quy tuyến tính
+    # x (year) là giá trị biến độc lập (năm) cần dự đoán
+    # b (model.intercept_[0]) là hệ số góc (chặn trục y) từ mô hình hồi quy tuyến tính
     return int(model.coef_[0][0] * year + model.intercept_[0])
 
 
