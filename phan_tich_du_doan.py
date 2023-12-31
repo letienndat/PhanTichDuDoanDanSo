@@ -6,6 +6,9 @@ from sklearn.linear_model import LinearRegression
 
 
 # Lưu danh sách chứa tên các quốc gia không bị trùng lặp
+from sklearn.metrics import mean_squared_error, r2_score
+
+
 def country_list_gen(df):
     # Đổi tên cột từ Country Name -> country_name
     df.rename(columns={'Country Name': 'country_name'}, inplace=True)
@@ -72,7 +75,14 @@ def prediction_model(df, country):
     # Tiến hành huấn luyện
     model.fit(x, y)
 
+    # Đánh giá mô hình
     y_pred = model.predict(x)
+    mse = mean_squared_error(y, y_pred)
+    r2 = r2_score(y, y_pred)
+
+    print('\n[ĐÁNH GIÁ MÔ HÌNH]')
+    print(f"Trung bình sai số (MSE): {mse:.2f}")
+    print(f"Bình phương sai số (R²): {r2:.2f}")
 
     # Vẽ biểu đồ thể hiện đường hồi quy tuyến tính
     plt.figure(figsize=(10, 6))
